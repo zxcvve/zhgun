@@ -26,11 +26,13 @@ available_bmp = [
     "./materials/bmp/bmp_25.bmp",
     "./materials/bmp/snail.bmp",
 ]
+
+# 2.txt - статья из СМИ
 available_txt = [
     "./materials/txt/1.txt",
     "./materials/txt/2.txt",
     "./materials/txt/3.txt",
     "./materials/txt/4.txt",
 ]
-frequency = analyze_file(available_bmp[1])
+frequency = analyze_file(available_txt[1])
 plot_histogram(frequency)
