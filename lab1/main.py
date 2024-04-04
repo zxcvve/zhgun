@@ -23,7 +23,7 @@ def plot_histogram(frequency):
 available_bmp = [
     "./materials/bmp/blackbuck.bmp",
     "./materials/bmp/bmp_08.bmp",
-    "./materials/bmp/bmp_25.bmp",
+    "./materials/bmp/bmp_24.bmp",
     "./materials/bmp/snail.bmp",
 ]
 
