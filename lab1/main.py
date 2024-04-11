@@ -28,12 +28,19 @@ def plot_histogram(frequency, title):
         )
         ax1.bar(list(frequency["red"].keys()), list(frequency["red"].values()))
         ax1.set_title("Red Channel")
+        ax1.set_yscale("log")  # Set y-axis to logarithmic scale
+
         ax2.bar(list(frequency["green"].keys()), list(frequency["green"].values()))
         ax2.set_title("Green Channel")
+        ax2.set_yscale("log")  # Set y-axis to logarithmic scale
+
         ax3.bar(list(frequency["blue"].keys()), list(frequency["blue"].values()))
         ax3.set_title("Blue Channel")
+        ax3.set_yscale("log")  # Set y-axis to logarithmic scale
+
         fig.suptitle(title)
         plt.show()
+
     elif "text" in frequency:
         # Plot histogram for text file
         labels, values = zip(*frequency["text"].most_common())
