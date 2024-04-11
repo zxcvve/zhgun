@@ -54,23 +54,23 @@ def plot_histogram(frequency, title):
 
         fig.suptitle(title)
         plt.show()
-        print(
-            f"Entropy - Red: {frequency['entropy']['red']:.4f}, Green: {frequency['entropy']['green']:.4f}, Blue: {frequency['entropy']['blue']:.4f}"
-        )
+        # print(
+        #     f"Entropy - Red: {frequency['entropy']['red']:.4f}, Green: {frequency['entropy']['green']:.4f}, Blue: {frequency['entropy']['blue']:.4f}"
+        # )
     elif "text" in frequency:
         labels, values = zip(*frequency["text"].most_common())
         plt.bar(labels, values)
         plt.xlabel("ASCII value")
         plt.ylabel("Frequency")
         plt.title(title)
-        plt.show()
         print(f"Entropy - Text: {frequency['text_entropy']:.4f}")
+        plt.show()
     else:
         raise ValueError("Unsupported frequency format")
 
 
 # Example usage with images and text files:
-frequency = analyze_file("./materials/bmp/snail.bmp")
-plot_histogram(frequency, "Frequency Analysis of BMP Image")
-# frequency = analyze_file("./materials/txt/1.txt")
-# plot_histogram(frequency, "Frequency Analysis of Text File")
+# frequency = analyze_file("./materials/bmp/snail.bmp")
+# plot_histogram(frequency, "Frequency Analysis of BMP Image")
+frequency = analyze_file("./materials/txt/1.txt")
+plot_histogram(frequency, "Frequency Analysis of Text File")
