@@ -23,7 +23,9 @@ def analyze_file(file_path):
 def plot_histogram(frequency, title):
     if "red" in frequency and "green" in frequency and "blue" in frequency:
         # Plot histograms for each RGB channel
-        fig, (ax1, ax2, ax3) = plt.subplots(1, 3, figsize=(15, 5))
+        fig, (ax1, ax2, ax3) = plt.subplots(
+            1, 3, figsize=(15, 5), sharex=True, sharey=True
+        )
         ax1.bar(list(frequency["red"].keys()), list(frequency["red"].values()))
         ax1.set_title("Red Channel")
         ax2.bar(list(frequency["green"].keys()), list(frequency["green"].values()))
@@ -58,12 +60,13 @@ available_txt = [
     "./materials/txt/2.txt",
     "./materials/txt/3.txt",
     "./materials/txt/4.txt",
+    "./materials/txt/5.txt",
 ]
 
 # Analyze BMP image
-frequency = analyze_file(available_bmp[0])
+frequency = analyze_file(available_bmp[3])
 plot_histogram(frequency, "Frequency Analysis of BMP Image")
 
 # Analyze text file
-# frequency = analyze_file(available_txt[1])
+# frequency = analyze_file(available_txt[4])
 # plot_histogram(frequency, "Frequency Analysis of Text File")
