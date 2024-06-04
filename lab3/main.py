@@ -1,3 +1,11 @@
+import matplotlib.pyplot as plt
+from collections import Counter
+import numpy as np
+import os
+
+script_path = os.path.abspath(__file__)
+script_dir = os.path.dirname(script_path)
+
 class VigenereCipher:
     def __init__(self, text, password):
         self.text = text
@@ -28,15 +36,24 @@ class VigenereCipher:
 
 
 def read_file(file_path):
-    with open(file_path, 'r', encoding='utf-8') as file:
+    with open(file_path, "rb") as file:
         return file.read()
 
+def plot_histogram(text_bin):
+    frequency = Counter(text_bin)
+    labels, values = zip(*frequency.most_common())
+    plt.bar(labels, values)
+    plt.xlabel("ASCII value")
+    plt.ylabel("Frequency")
+    plt.title("Text Histogram")
+    plt.show()
 
-# Example usage
-file_path = 'input.txt'
+file_path = f"{script_dir}/input.txt" 
 password = "Поле глазасто, а лес ушаст."
-text = read_file(file_path)
+text_binary = read_file(file_path)
+text_str = text_binary.decode("windows-1251")
 
-cipher = VigenereCipher(text, password)
+cipher = VigenereCipher(text_str, password)
 encrypted_text = cipher.encrypt()
-print(encrypted_text)
+text_back_to_str = encrypted_text.encode("windows-1251")
+plot_histogram(text_back_to_str)
