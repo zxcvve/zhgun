@@ -13,76 +13,79 @@ def lcg(x, a, c, m):
         x = (a * x + c) % m
         yield x
 
+
 def random_uniform_sample(n, interval, seed=0):
-    a, c, m = 1103515245, 12345, 2 ** 31
+    a, c, m = 1103515245, 12345, 2**31
     bsdrand = lcg(seed, a, c, m)
 
     lower, upper = interval[0], interval[1]
     sample = []
 
     for i in range(n):
-        observation = (upper - lower) * (next(bsdrand) / (2 ** 31 - 1)) + lower
+        observation = (upper - lower) * (next(bsdrand) / (2**31 - 1)) + lower
         sample.append(round(observation))
 
     return sample
 
+
 class BlumBlumShub(object):
     def __init__(self, length):
-        self.length = length*8
+        self.length = length * 8
 
     def random_generator(self):
         x = 3
         while self.length:
             x += 1
-            p, q = 11,23
+            p, q = 11, 23
             m = p * q
             z = (x**2) % m
             self.length -= 1
-            yield str(bin(z).count('1') % 2)
+            yield str(bin(z).count("1") % 2)
 
     def get_random_bits(self):
-        return ''.join(self.random_generator())
+        return "".join(self.random_generator())
+
 
 def bitstring_to_bytes(s):
     v = int(s, 2)
     b = bytearray()
     while v:
-        b.append(v & 0xff)
+        b.append(v & 0xFF)
         v >>= 8
     return bytes(b[::-1])
 
-def Analize(array):
-  np_carts = np.zeros(256)
-  indx = np.arange(256)
 
-  for i in array:
-    code_i = i
-    add_ = np_carts[code_i]
-    add_ = add_ + 1
-    np_carts[code_i] = add_
+def analyze(array):
+    np_carts = np.zeros(256)
+    indx = np.arange(256)
 
-  plt.figure(figsize=(20,9))
+    for i in array:
+        code_i = i
+        add_ = np_carts[code_i]
+        add_ = add_ + 1
+        np_carts[code_i] = add_
 
+    plt.figure(figsize=(20, 9))
 
-  plt.minorticks_on()
-  # включаем основную сетку
-  plt.grid(which='major', alpha = 0.8 , animated = True)
-  # включаем дополнительную сетку
-  plt.grid(which='minor', linestyle=':', alpha = 0.5)
-  plt.tight_layout()
+    plt.minorticks_on()
+    # включаем основную сетку
+    plt.grid(which="major", alpha=0.8, animated=True)
+    # включаем дополнительную сетку
+    plt.grid(which="minor", linestyle=":", alpha=0.5)
+    plt.tight_layout()
 
-  plt.xticks(np.arange(min(indx), max(indx)+1, 5.0))
-  plt.bar(indx, np_carts, color='#0B60B0' ,log=False)
+    plt.xticks(np.arange(min(indx), max(indx) + 1, 5.0))
+    plt.bar(indx, np_carts, color="#0B60B0", log=False)
 
-  plt.ylabel('Частота симолов текста ASCII')
-  plt.title('Анализ текста')
-  plt.show()
+    plt.ylabel("Frequency")
+    plt.title("Frequency Analysis")
+    plt.show()
 
 
 rus = random_uniform_sample(50, [0, 255])
 print(rus)
-print('LCGx50')
-Analize(rus)
+print("LCGx50")
+analyze(rus)
 
 # rus = random_uniform_sample(100, [0, 255])
 # print(rus)
