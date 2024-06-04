@@ -14,7 +14,7 @@ def lcg(x, a, c, m):
         yield x
 
 
-def random_uniform_sample(n, interval, seed=0):
+def random_uniform_sample(n, interval, seed=413):
     a, c, m = 1103515245, 12345, 2**31
     bsdrand = lcg(seed, a, c, m)
 
@@ -33,7 +33,7 @@ class BlumBlumShub(object):
         self.length = length * 8
 
     def random_generator(self):
-        x = 3
+        x = 4
         while self.length:
             x += 1
             p, q = 11, 23
@@ -55,7 +55,7 @@ def bitstring_to_bytes(s):
     return bytes(b[::-1])
 
 
-def analyze(array):
+def visualize(array):
     np_carts = np.zeros(256)
     indx = np.arange(256)
 
@@ -67,11 +67,6 @@ def analyze(array):
 
     plt.figure(figsize=(20, 9))
 
-    plt.minorticks_on()
-    # включаем основную сетку
-    plt.grid(which="major", alpha=0.8, animated=True)
-    # включаем дополнительную сетку
-    plt.grid(which="minor", linestyle=":", alpha=0.5)
     plt.tight_layout()
 
     plt.xticks(np.arange(min(indx), max(indx) + 1, 5.0))
@@ -82,30 +77,29 @@ def analyze(array):
     plt.show()
 
 
-rus = random_uniform_sample(50, [0, 255])
-print(rus)
-print("LCGx50")
-analyze(rus)
+# rus = random_uniform_sample(50, [0, 255])
+# print(rus)
+# print("LCGx50")
+# visualize(rus)
 
 # rus = random_uniform_sample(100, [0, 255])
 # print(rus)
 # print('LCGx100')
-# Analize(rus)
+# visualize(rus)
 
 # rus = random_uniform_sample(1000, [0, 255])
 # print(rus)
 # print('LCGx1000')
-# Analize(rus)
+# visualize(rus)
 
 # bb = BlumBlumShub(50)
 # s = bb.get_random_bits()
 # print(s)
 # bl = list(int(s[i : i + 8], 2) for i in range(0, len(s), 8))
 # #bl = bitstring_to_bytes(s)
-
 # print(bl)
 # print('BlumBlumShub x 50')
-# Analize(bl)
+# visualize(bl)
 
 # bb = BlumBlumShub(100)
 # s = bb.get_random_bits()
@@ -113,7 +107,7 @@ analyze(rus)
 # bl = list(int(s[i : i + 8], 2) for i in range(0, len(s), 8))
 # print(bl)
 # print('BlumBlumShub x 100')
-# Analize(bl)
+# visualize(bl)
 
 # bb = BlumBlumShub(1000)
 # s = bb.get_random_bits()
@@ -121,11 +115,11 @@ analyze(rus)
 # bl = list(int(s[i : i + 8], 2) for i in range(0, len(s), 8))
 # print(bl)
 # print('BlumBlumShub x 1000')
-# Analize(bl)
+# visualize(bl)
 
 
 # fpoly = [5,2]
-# L = LFSR(fpoly=fpoly)
+# L = LFSR(fpoly=fpoly, initstate='random')
 
 # # Generate K-bits
 # k=50*8
@@ -137,10 +131,10 @@ analyze(rus)
 # bl = list(int(str(seq_k[i : i + 8]).replace(']','').replace('[','').replace(' ',''), 2) for i in range(0, len(seq_k), 8))
 # print(bl)
 # print('LFSR x 50')
-# Analize(bl)
+# visualize(bl)
 
 # fpoly = [5,2]
-# L = LFSR(fpoly=fpoly)
+# L = LFSR(fpoly=fpoly, initstate='random')
 
 # # Generate K-bits
 # k=100*8
@@ -151,20 +145,20 @@ analyze(rus)
 
 # bl = list(int(str(seq_k[i : i + 8]).replace(']','').replace('[','').replace(' ',''), 2) for i in range(0, len(seq_k), 8))
 # print(bl)
-# print('BlumBlumShub x 100')
-# Analize(bl)
+# print('LFSR x 100')
+# visualize(bl)
 
-# fpoly = [5,2]
-# L = LFSR(fpoly=fpoly)
+fpoly = [5,2]
+L = LFSR(fpoly=fpoly, initstate='random')
 
-# # Generate K-bits
-# k=1000*8
-# seq_k  = L.runKCycle(k)
+# Generate K-bits
+k=1000*8
+seq_k  = L.runKCycle(k)
 
-# print('bits')
-# print(L.arr2str(seq_k))
+print('bits')
+print(L.arr2str(seq_k))
 
-# bl = list(int(str(seq_k[i : i + 8]).replace(']','').replace('[','').replace(' ',''), 2) for i in range(0, len(seq_k), 8))
-# print(bl)
-# print('LFSR x 1000')
-# Analize(bl)
+bl = list(int(str(seq_k[i : i + 8]).replace(']','').replace('[','').replace(' ',''), 2) for i in range(0, len(seq_k), 8))
+print(bl)
+print('LFSR x 1000')
+visualize(bl)
