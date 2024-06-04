@@ -69,8 +69,7 @@ def plot_histogram(frequency, title):
         raise ValueError("Unsupported frequency format")
 
 
-# Example usage with images and text files:
-# frequency = analyze_file("./materials/bmp/snail.bmp")
+frequency = analyze_file("./materials/bmp/rofl.bmp")
 # plot_histogram(frequency, "Frequency Analysis of BMP Image")
-frequency = analyze_file("./materials/txt/1.txt")
+# frequency = analyze_file("./materials/txt/4.txt")
 plot_histogram(frequency, "Frequency Analysis of Text File")
