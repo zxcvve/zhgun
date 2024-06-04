@@ -87,6 +87,7 @@ L = LFSR(fpoly=fpoly, initstate='random')
 k=1000*8
 seq_k  = L.runKCycle(k)
 
+text_str = text_binary.decode("windows-1251")
 password = L.arr2str(seq_k)
 cipher = VigenereCipher(text_str, password)
 encrypted_text = cipher.encrypt()
